@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd "$( dirname "${BASH_SOURCE[0]}" )/../"
+
+./bin/clean
+
+DEBUG=false node_modules/webpack/bin/webpack.js
