@@ -11,8 +11,10 @@ module.exports = {
     vendor: [
       'react',
       'react-router',
+      'react-bootstrap',
       'geiger',
       'axios',
+      'babel-runtime/core-js',
       'bootstrap/dist/css/bootstrap.css']
   },
   debug: debug,

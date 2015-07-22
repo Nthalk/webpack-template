@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.5.4",
+    "babel-runtime": "^5.8.3",
     "bootstrap": "^3.3.5",
     "geiger": "^1.0.4",
     "react": "^0.13.3",
