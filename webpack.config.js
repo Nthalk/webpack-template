@@ -3,24 +3,21 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+function file(filePath) {
+  return path.resolve(__dirname, filePath);
+}
+
 var debug = process.env.DEBUG != 'false';
+var srcDir = file('src');
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, 'src/main.jsx'),
-    vendor: [
-      'react',
-      'react-router',
-      'react-bootstrap',
-      'geiger',
-      'axios',
-      'babel-runtime/core-js',
-      'bootstrap/dist/css/bootstrap.css']
+    app: file('src/main.jsx')
   },
   debug: debug,
   devtool: debug ? 'eval-cheap-module-source-map' : false,
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: file('dist'),
     filename: 'js/[name]-bundle' + (debug ? '' : '-[hash]') + '.js',
     pathInfo: true
   },
@@ -31,12 +28,8 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader?optional=runtime'
       },
-      { // Css
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-      },
       { // Sass
-        test: /\.scss$/,
+        test: /\.s?css$/,
         loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass")
       },
       { // Image Resources
@@ -49,7 +42,13 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("css/[name]-bundle-[hash].css"),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'js/[name]-bundle' + (debug ? '' : '-[hash]') + '.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'js/[name]-bundle' + (debug ? '' : '-[hash]') + '.js',
+      minChunks: function (module, count) {
+        return module.resource && module.resource.indexOf(srcDir) === -1;
+      }
+    }),
     new HtmlWebpackPlugin()
   ].concat(debug ? [] : [
       new webpack.optimize.DedupePlugin(),
