@@ -1,22 +1,43 @@
 process.env.DEBUG = 'true';
-var webpackConfig = require('./webpack.config');
+process.env.TEST = 'true';
+
 var path = require('path');
 
 module.exports = function (config) {
   config.set({
+    basePath: '',
     browsers: ['Chrome'],
     singleRun: true,
     frameworks: ['mocha'],
     files: [
-      './test/sanity_test.js'
+      'test/*_test.js',
+      'test/**/*_test.js'
     ],
     reporters: ['dots'],
     preprocessors: {
-      './test/sanity_test.js': ['webpack', 'sourcemap']
+      'test/*_test.js': ['webpack'],
+      'test/**/*_test.js': ['webpack', 'sourcemap']
     },
-    webpack: webpackConfig,
-    webpackServer: {
+    webpack: {
+      devtool: 'inline-source-map',
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    },
+    webpackMiddleware: {
       noInfo: true
-    }
+    },
+    plugins: [
+      "karma-webpack",
+      "karma-mocha",
+      "karma-chrome-launcher",
+      "karma-sourcemap-loader"
+    ]
   });
 };

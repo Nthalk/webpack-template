@@ -8,9 +8,6 @@ var debug = process.env.DEBUG != 'false';
 module.exports = {
   entry: {
     app: path.resolve(__dirname, 'src/main.jsx'),
-    test: [
-      path.resolve(__dirname, 'test/sanity_test.js')
-    ],
     vendor: [
       'react',
       'react-router',
