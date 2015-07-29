@@ -12,7 +12,7 @@ var srcDir = file('src');
 
 module.exports = {
   entry: {
-    app: file('src/main.jsx')
+    app: file('src/boot.jsx')
   },
   debug: debug,
   devtool: debug ? 'eval-cheap-module-source-map' : false,
