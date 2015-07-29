@@ -6,7 +6,17 @@ var React = require('react');
 var Router = require('./router');
 
 // Bootstrap
-Router.run((Root) => {
-  React.render(<Root/>, document.body);
-});
+function boot() {
+  Router.run((Root) => {
+    React.render(<Root/>, document.body);
+  });
+}
+
+// Allow boot to be deferred
+if (window._deferBoot) {
+  window._deferBoot(boot);
+} else {
+  boot();
+}
+
 

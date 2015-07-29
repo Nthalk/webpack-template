@@ -1,29 +1,28 @@
 var Reflux = require('reflux');
+var WidgetsActions = require('./widgets_actions');
+var axios = require("axios");
 
-// Define our actions
-var actions = Reflux.createActions([
-  "addItem",
-  "removeItem"
-]);
-
-// Define our backend
-function addItem() {
-  console.log("Item Added")
-}
-
-function removeItem() {
-
-}
+var API_PREFIX = "/api/widgets";
 
 
-// Create our store
-var store = Reflux.createStore({
-  init(){
-    this.listenTo(actions.addItem, addItem);
-    this.listenTo(actions.removeItem, removeItem);
+axios.interceptors.request.use(function (config) {
+  if(config.url.startsWith(API_PREFIX)){
+    return [1,2,3];
   }
+  return config;
 });
 
-store.Actions = actions;
-
-module.exports = store;
+// Create our store
+module.exports = Reflux.createStore({
+  listenables: WidgetsActions,
+  onQuery(query){
+    WidgetsActions.query.promise(axios.get(API_PREFIX, {
+      params: query
+    }))
+  },
+  onCreate(widget){
+    WidgetsActions.create.promise(axios.post(API_PREFIX, {
+      data: widget
+    }));
+  }
+});
