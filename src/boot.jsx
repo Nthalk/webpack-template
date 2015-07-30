@@ -1,6 +1,6 @@
 // Styles
+require('bootstrap/less/bootstrap.less');
 require('./style/main.scss');
-require('bootstrap/dist/css/bootstrap.css');
 
 var React = require('react');
 var Router = require('./router');

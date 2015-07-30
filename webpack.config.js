@@ -21,6 +21,9 @@ module.exports = {
     filename: 'js/[name]-bundle' + (debug ? '' : '-[hash]') + '.js',
     pathInfo: true
   },
+  devServer: {
+    noInfo: true
+  },
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
@@ -34,8 +37,8 @@ module.exports = {
         loader: 'babel-loader?optional=runtime'
       },
       { // Sass
-        test: /\.s?css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass")
+        test: /(\.less|\.s?css)$/,
+        loader: ExtractTextPlugin.extract("style-loader", "css!sass!less")
       },
       { // Image Resources
         test: /\.(jpe?g|png|gif|svg|eot|ttf|woff2|woff)$/i,
@@ -43,7 +46,7 @@ module.exports = {
       }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', 'css', 'scss']
+    extensions: ['', '.js', '.jsx', 'css', 'scss', 'less']
   },
   plugins: [
     new ExtractTextPlugin("css/[name]-bundle-[hash].css"),
