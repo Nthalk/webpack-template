@@ -1,6 +1,6 @@
 // Styles
-require("./style/main.scss");
-require("bootstrap/dist/css/bootstrap.css");
+require('./style/main.scss');
+require('bootstrap/dist/css/bootstrap.css');
 
 var React = require('react');
 var Router = require('./router');
@@ -18,5 +18,3 @@ if (window._deferBoot) {
 } else {
   boot();
 }
-
-

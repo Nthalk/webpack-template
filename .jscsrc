@@ -1,0 +1,9 @@
+{
+  "preset": "google",
+  "esprima": "esprima-fb",
+  "validateIndentation": 2,
+  "disallowSpacesInsideObjectBrackets": null,
+  "disallowImplicitTypeConversion": ["string"],
+  "requireCurlyBraces": null,
+  "disallowSpacesInAnonymousFunctionExpression": null
+}

@@ -5,7 +5,7 @@ var Row = require('react-bootstrap/lib/Row');
 var Col = require('react-bootstrap/lib/Col');
 
 module.exports = React.createClass({
-  render(){
+  render() {
     return <Grid>
       <Row>
         <Col md={12}>

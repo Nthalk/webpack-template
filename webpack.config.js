@@ -22,6 +22,11 @@ module.exports = {
     pathInfo: true
   },
   module: {
+    preLoaders: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'jscs-loader'
+    }],
     loaders: [
       { // JSX
         test: /\.jsx?$/,
